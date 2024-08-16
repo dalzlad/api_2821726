@@ -1,0 +1,14 @@
+git init
+git add .
+git commit -m "Primer commit"
+git config user.email "dalz.sena@gmail.com"
+git config user.name "dalzlad"
+git branch -M main
+git remote add origin https://github.com/dalzlad/api_2821726.git
+git push -u origin main
+
+Actualizar el repositorio
+git pull
+git add .
+git commit -m "Actualización de Repositorio"
+git push -u origin main
