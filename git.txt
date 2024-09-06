@@ -1,8 +1,8 @@
 git init
 git add .
-git commit -m "Primer commit"
 git config user.email "dalz.sena@gmail.com"
 git config user.name "dalzlad"
+git commit -m "Primer commit"
 git branch -M main
 git remote add origin https://github.com/dalzlad/api_2821726.git
 git push -u origin main
@@ -12,3 +12,14 @@ git pull
 git add .
 git commit -m "Actualización de Repositorio"
 git push -u origin main
+
+Crear una api llamada exportacion con los atributos:
+methodos: get, post, put, delete
+nameProduct, price, weight
+Subir a git
+Desplegar en render.
+Enviar el link de git y Url de render a dilopezz@sena.edu.co
+Hora de entrega:Hoy 11:59 a.m
+
+
+

@@ -1,7 +1,10 @@
-const express = require('express')
-const dbConnect = require('../database/config')
-require('../database/config')
-const {getVehicle, putVehicle, deleteVehicle} = require('../controllers/vehicleController')
+import express, { json } from 'express'
+import dbConnect from '../database/config.js'
+import '../database/config.js'
+import vehicleRouter from '../routes/vehicleRoute.js'
+import userRouter from '../routes/userRoute.js'
+import authRouter from '../routes/authRouth.js'
+import cors from 'cors'
 
 class Server{
 
@@ -18,10 +21,14 @@ class Server{
     }
 
     route(){
-        this.app.use(express.json());
-        this.app.get(this.pathVehicle, getVehicle)
+        this.app.use(json());
+        this.app.use( cors() );
+        /*this.app.get(this.pathVehicle, getVehicle)
         this.app.put(this.pathVehicle, putVehicle)
-        this.app.delete(this.pathVehicle+'/:id', deleteVehicle)
+        this.app.delete(this.pathVehicle+'/:id', deleteVehicle)*/
+        this.app.use(this.pathVehicle, vehicleRouter)
+        this.app.use('/api/User', userRouter)
+        this.app.use('/login', authRouter)
     }
 
     listen(){
@@ -31,7 +38,7 @@ class Server{
     }
 }
 
-module.exports = Server //Exportar la clase server
+export default Server //Exportar la clase server
 
 //Tarea: crear un proyecto que se permita conectar al servidor de 
 

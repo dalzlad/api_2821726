@@ -1,13 +1,25 @@
-const Vehicle = require('../models/vehicle')
+import Vehicle from '../models/vehicle.js'
 
 //Method GET
-const getVehicle = async(req, res) => {
+export async function getVehicle(req, res){
     const vehicles = await Vehicle.find()
-    res.json(vehicles)
+    res.json({vehicles})
 }
 
+//Post Create a document in the collection Vehicle
+export async function postVehicle(req, res){
+    const body = req.body //Get the body send from postman or a form
+    let msg = 'Vehicle inserted succesful'
+    try {
+        const vehicle = new Vehicle(body)//Create the object Vehicle in RAM
+        await vehicle.save() //Insert object at the collection
+    } catch (error) {
+        msg = error
+    }
+    res.json({msg:msg})
+}
 
-const putVehicle = async(req, res) => {
+export async function putVehicle(req, res){
     const {plate, color, model} = req.body
     let msg = 'Vehicle updated'
     try {
@@ -18,7 +30,7 @@ const putVehicle = async(req, res) => {
     res.json({msg:msg})
 }
 
-const deleteVehicle = async(req, res) =>{
+export async function deleteVehicle(req, res){
     let msg = 'Vehicle deleted'
     id = req.params.id
     try {
@@ -27,10 +39,4 @@ const deleteVehicle = async(req, res) =>{
         msg = 'There was a problem while deleting'
     }
     res.json({msg:msg})
-}
-
-module.exports = {
-    getVehicle,
-    putVehicle,
-    deleteVehicle
 }
