@@ -6,6 +6,13 @@ export async function getVehicle(req, res){
     res.json({vehicles})
 }
 
+//Method GET
+export async function getOneVehicle(req, res){
+    const {id}= req.params
+    const vehicle = await Vehicle.findById(id)
+    res.json(vehicle)
+}
+
 //Post Create a document in the collection Vehicle
 export async function postVehicle(req, res){
     const body = req.body //Get the body send from postman or a form
