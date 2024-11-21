@@ -39,7 +39,7 @@ export async function putVehicle(req, res){
 
 export async function deleteVehicle(req, res){
     let msg = 'Vehicle deleted'
-    id = req.params.id
+    const {id} = req.params
     try {
         await Vehicle.findByIdAndDelete(id)
     } catch (error) {
