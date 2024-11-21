@@ -41,7 +41,7 @@ export async function deleteVehicle(req, res){
     let msg = 'Vehicle deleted'
     id = req.params.id
     try {
-        await Vehicle.findByIdAndDelete({_id: id})
+        await Vehicle.findByIdAndDelete(id)
     } catch (error) {
         msg = 'There was a problem while deleting'
     }
