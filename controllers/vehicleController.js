@@ -1,4 +1,5 @@
-import Vehicle from '../models/vehicle.js'
+import mongoose from "mongoose";
+import Vehicle from "../models/vehicle.js";
 
 //Method GET - All vehicles
 export async function getVehicle(req, res) {
@@ -13,6 +14,11 @@ export async function getVehicle(req, res) {
 //Method GET - One vehicle by id
 export async function getOneVehicle(req, res) {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ msg: "Invalid ID format" });
+    }
+
     try {
         const vehicle = await Vehicle.findById(id);
         if (!vehicle) {
@@ -27,8 +33,8 @@ export async function getOneVehicle(req, res) {
 //Method POST - Create a vehicle
 export async function postVehicle(req, res) {
     try {
-        const vehicle = new Vehicle(req.body); // objeto en RAM
-        await vehicle.save(); // guardar en la colección
+        const vehicle = new Vehicle(req.body);
+        await vehicle.save();
         res.status(201).json({ msg: "Vehicle inserted successfully", vehicle });
     } catch (error) {
         res.status(400).json({ msg: "Error inserting vehicle", error: error.message });
@@ -38,7 +44,12 @@ export async function postVehicle(req, res) {
 //Method PUT - Update by id
 export async function putVehicle(req, res) {
     const { id } = req.params;
-    const { color, model, plate } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ msg: "Invalid ID format" });
+    }
+
+    const { plate, color, model } = req.body;
 
     try {
         const updatedVehicle = await Vehicle.findByIdAndUpdate(
@@ -53,7 +64,7 @@ export async function putVehicle(req, res) {
 
         res.json({
             msg: "Vehicle updated successfully",
-            vehicle: updatedVehicle
+            vehicle: updatedVehicle,
         });
     } catch (error) {
         res.status(500).json({ msg: "Error updating vehicle", error: error.message });
@@ -63,6 +74,11 @@ export async function putVehicle(req, res) {
 //Method DELETE - Delete by id
 export async function deleteVehicle(req, res) {
     const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ msg: "Invalid ID format" });
+    }
+
     try {
         const deletedVehicle = await Vehicle.findByIdAndDelete(id);
         if (!deletedVehicle) {
